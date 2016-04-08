@@ -12,8 +12,21 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add option="-g" />
+					<Add directory="/home/joe/includes/boost_1_60_0" />
+					<Add directory="include" />
+					<Add directory="/usr/local/hdf5/include" />
 				</Compiler>
+				<Linker>
+					<Add option="-lhdf5" />
+					<Add option="-lrt" />
+					<Add option="-lboost_thread" />
+					<Add option="-pthread" />
+					<Add directory="/usr/local/lib" />
+					<Add directory="/lib" />
+					<Add directory="/usr/local/hdf5/lib" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/NanoporeChallenge" prefix_auto="1" extension_auto="1" />
@@ -22,6 +35,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -32,7 +46,14 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/DataPointsConsumer.h" />
+		<Unit filename="include/DataPointsProducer.h" />
+		<Unit filename="include/HDF5HandlerBase.h" />
+		<Unit filename="include/SharedMemoryData.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/DataPointsConsumer.cpp" />
+		<Unit filename="src/DataPointsProducer.cpp" />
+		<Unit filename="src/HDF5HandlerBase.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

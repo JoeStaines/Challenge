@@ -14,6 +14,9 @@
 #include <chrono>
 #include <thread>
 
+#include "DataPointsProducer.h"
+#include "DataPointsConsumer.h"
+
 using namespace boost::interprocess;
 //Alias an STL-like allocator of ints that allocates ints from the segment
 typedef allocator<int, managed_shared_memory::segment_manager>
@@ -42,68 +45,15 @@ struct sync_items {
     bool                    finished;
 };
 
-void add_points_to_buffer() {
-    // Open shared memory segment
-    managed_shared_memory segment(open_only, "MySharedMemory");
-    managed_shared_memory sync_segment(open_only, "SyncMemory");
-
-    // Open circular buffer from shared memory
-    offset_ptr<MyCircularBuffer> circ_buffer = segment.find<MyCircularBuffer>("MyCircularBuffer").first;
-    offset_ptr<sync_items> sync_data = sync_segment.find<sync_items>("SyncItems").first;
-
-    for (int j = 0; j < 5; ++j) {
-
-        // Fill buffer with random ints
-        // (increase scale later)
-        for (int i = 0; i < 100; ++i) {
-            std::this_thread::sleep_for (std::chrono::milliseconds(10));
-            scoped_lock<interprocess_mutex> lock (sync_data->mutex);
-            int num = rand() % 10;
-            std::cout << "Process 1 post data " << num << std::endl;
-            circ_buffer->push_back(num);
-            sync_data->cond_empty.notify_one(); // Notify that circular buffer not empty
-        }
-
-        std::cout << "Process 1 sleep..." << std::endl;
-        std::this_thread::sleep_for (std::chrono::seconds(1));
-
-    }
-
-    sync_data->finished = true;
-    sync_data->cond_empty.notify_one(); // Use this to wake up consumer last time in case it's stuck waiting
-}
-
-void take_points_from_buffer() {
-    // Open shared memory segment
-    managed_shared_memory segment(open_only, "MySharedMemory");
-    managed_shared_memory sync_segment(open_only, "SyncMemory");
-
-    // Open circular buffer  and sync data from shared memory
-    offset_ptr<MyCircularBuffer> circ_buffer = segment.find<MyCircularBuffer>("MyCircularBuffer").first;
-    offset_ptr<sync_items> sync_data = sync_segment.find<sync_items>("SyncItems").first;
-
-    while(!sync_data->finished) {
-        scoped_lock<interprocess_mutex> lock (sync_data->mutex);
-        if (circ_buffer->empty()) {
-            std::cout << "Process 2 buffer empty, waiting..." << std::endl;
-            sync_data->cond_empty.wait(lock);
-            std::cout << "Process 2 waking up" << std::endl;
-
-            // Use continue so that consumer skips taking out of the buffer
-            // and checks the loop condition again + empty condition.
-            continue;
-        }
-
-        std::cout << "Process 2 taking data " << circ_buffer->front() << std::endl;
-        circ_buffer->pop_front();
-    }
-}
 
 int main (int argc, char* argv[])
 {
     srand(time(NULL));
 
     /*** Note: start refactoring producer/consumer to their own classes ***/
+
+    std::string pointsStr =     "MySharedMemory";
+    std::string syncStr =       "SyncMemory";
 
     //Remove shared memory on construction and destruction
     struct shm_remove
@@ -112,21 +62,27 @@ int main (int argc, char* argv[])
         ~shm_remove(){ shared_memory_object::remove("MySharedMemory"); }
     } remover;
 
-    const int capacity = 100000000;
-    const int buffer = 1024;
+    // Need 10^6 data points every 1s so 10*10^6 space needs to be allocated
+    // then after 10s it will start to circle back and overwrite.
+    // Plus a small buffer for any extra space that may be allocated
+    // such as the container object
+    const int capacity =    10000000;
+    const int data_count =  1000000;
+    const int buffer =      1024;
 
     //A managed shared memory where we can construct objects
     //associated with a c-string
+    std::cout << "Created a whole lot of shared memory..." << std::endl;
     managed_shared_memory segment(create_only,
-                                 "MySharedMemory",  //segment name
-                                 65535);
+                                 pointsStr.c_str(),  //segment name
+                                 capacity*sizeof(int)+buffer);
 
 
     //Initialize the STL-like allocator
     const ShmemAllocator alloc_inst (segment.get_segment_manager());
 
     offset_ptr<MyCircularBuffer> circ_buffer = segment.construct<MyCircularBuffer>("MyCircularBuffer") (alloc_inst);
-    circ_buffer->set_capacity(10000);
+    circ_buffer->set_capacity(capacity);
 
 
     //Remover for the syncronisation items
@@ -137,22 +93,23 @@ int main (int argc, char* argv[])
     } sync_remover;
 
     managed_shared_memory sync_segment  (create_only,
-                                        "SyncMemory",
+                                        syncStr.c_str(),
                                         1024);
 
-    offset_ptr<sync_items> sync_data = sync_segment.construct<sync_items>("SyncItems")();
+    sync_segment.construct<sync_items>("SyncItems")();
 
     int status = 0;
-    pid_t pid;
     pid_t child_proc = fork();
 
     if (child_proc == 0) { // Child process
         std::cout << "child enter consuming func" << std::endl;
-        take_points_from_buffer();
+        DataPointsConsumer consumer(pointsStr, syncStr);
+        consumer.take_points_from_buffer();
 
     } else if (child_proc > 0) { // Parent process
         std::cout << "parent enter producing func" << std::endl;
-        add_points_to_buffer();
+        DataPointsProducer producer(pointsStr, syncStr, data_count);
+        producer.add_points_to_buffer();
 
     } else { // Fork failed
         std::cout << "Fork() failed. Aborting" << std::endl;

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1460064659 source:/home/joe/git/NanoporeChallenge/main.cpp
+1460130644 source:/home/joe/git/NanoporeChallenge/main.cpp
 	<boost/interprocess/containers/vector.hpp>
 	<boost/circular_buffer.hpp>
 	<boost/interprocess/allocators/allocator.hpp>
@@ -12,6 +12,8 @@
 	<time.h>
 	<chrono>
 	<thread>
+	"DataPointsProducer.h"
+	"DataPointsConsumer.h"
 
 1449603569 /home/joe/includes/boost_1_60_0/boost/interprocess/containers/vector.hpp
 	<boost/config.hpp>
@@ -5864,4 +5866,33 @@
 	<boost/move/utility_core.hpp>
 	<boost/cstdint.hpp>
 	<boost/interprocess/detail/config_end.hpp>
+
+1460126082 source:/home/joe/git/NanoporeChallenge/src/DataPointsProducer.cpp
+	"DataPointsProducer.h"
+	<boost/interprocess/managed_shared_memory.hpp>
+	<boost/interprocess/sync/interprocess_condition.hpp>
+	<boost/interprocess/sync/scoped_lock.hpp>
+	<chrono>
+	<thread>
+	"SharedMemoryData.h"
+
+1460123457 /home/joe/git/NanoporeChallenge/include/DataPointsProducer.h
+	<iostream>
+
+1460112953 /home/joe/git/NanoporeChallenge/include/SharedMemoryData.h
+	<boost/interprocess/containers/vector.hpp>
+	<boost/circular_buffer.hpp>
+	<boost/interprocess/allocators/allocator.hpp>
+	<boost/interprocess/managed_shared_memory.hpp>
+	<boost/interprocess/sync/interprocess_condition.hpp>
+
+1460123659 source:/home/joe/git/NanoporeChallenge/src/DataPointsConsumer.cpp
+	"DataPointsConsumer.h"
+	<boost/interprocess/managed_shared_memory.hpp>
+	<boost/interprocess/sync/interprocess_condition.hpp>
+	<boost/interprocess/sync/scoped_lock.hpp>
+	"SharedMemoryData.h"
+
+1460123444 /home/joe/git/NanoporeChallenge/include/DataPointsConsumer.h
+	<iostream>
 
