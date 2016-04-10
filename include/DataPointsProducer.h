@@ -6,15 +6,20 @@
 class DataPointsProducer
 {
     public:
-        DataPointsProducer(std::string pointsStr, std::string syncStr, int dataCount);
+        DataPointsProducer(const std::string &pointsStr,
+                            const std::string &syncStr,
+                            const std::string &bufferStr,
+                            const std::string &syncItemsStr);
         ~DataPointsProducer();
 
-        void add_points_to_buffer();
+        void produce(int dataCount);
+        void finish(int poisonPill);
     protected:
     private:
-        std::string shmemPointsStr;
-        std::string shmemSyncStr;
-        int dataCount;
+        const std::string shmemPointsStr;
+        const std::string shmemSyncStr;
+        const std::string shmemBufferStr;
+        const std::string shmemSyncItemsStr;
 };
 
 #endif // DATAPOINTSPRODUCER_H

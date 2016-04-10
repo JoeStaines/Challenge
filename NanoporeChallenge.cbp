@@ -19,9 +19,10 @@
 					<Add directory="/usr/local/hdf5/include" />
 				</Compiler>
 				<Linker>
-					<Add option="-lhdf5" />
 					<Add option="-lrt" />
 					<Add option="-lboost_thread" />
+					<Add option="-lhdf5_cpp" />
+					<Add option="-lhdf5" />
 					<Add option="-pthread" />
 					<Add directory="/usr/local/lib" />
 					<Add directory="/lib" />

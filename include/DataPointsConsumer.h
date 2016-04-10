@@ -2,6 +2,7 @@
 #define DATAPOINTSCONSUMER_H
 
 #include <iostream>
+#include <vector>
 
 class DataPointsConsumer
 {
@@ -9,7 +10,8 @@ class DataPointsConsumer
         DataPointsConsumer(std::string pointsStr, std::string syncStr);
         ~DataPointsConsumer();
 
-        void take_points_from_buffer();
+        int consume();
+        std::vector<int> consume_to_vector(int limit, int poisonPill);
     protected:
     private:
         std::string shmemPointsStr;
