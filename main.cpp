@@ -18,6 +18,7 @@
 
 #include "DataPointsProducer.h"
 #include "DataPointsConsumer.h"
+#include "SharedMemoryData.h"
 #include "HDF5HandlerBase.h"
 #include "H5Cpp.h"
 
@@ -60,14 +61,9 @@ int main (int argc, char* argv[])
     std::string bufferStr =     "MyCircularBuffer";
     std::string syncItemsStr =  "SyncItems";
 
-    //Remove shared memory on construction and destruction
-    struct shm_remove
-    {
-        char * remove_str;
-
-        shm_remove(char* str) { remove_str = str; shared_memory_object::remove(remove_str); }
-        ~shm_remove(){ shared_memory_object::remove(remove_str); }
-    } remover(const_cast<char*>(pointsStr.c_str()));
+    // Remove shared memory segment if it exists
+    shm_remove remover(const_cast<char*>(pointsStr.c_str()));
+    shm_remove sync_remover(const_cast<char*>(syncStr.c_str()));
 
     // Need 10^6 data points every 1s so 10*10^6 space needs to be allocated
     // then after 10s it will start to circle back and overwrite.
@@ -90,16 +86,6 @@ int main (int argc, char* argv[])
 
     offset_ptr<MyCircularBuffer> circ_buffer = segment.construct<MyCircularBuffer>(bufferStr.c_str()) (alloc_inst);
     circ_buffer->set_capacity(capacity);
-
-
-    //Remover for the syncronisation items
-    struct shm_sync_remove
-    {
-        char * remove_str;
-
-        shm_sync_remove(char* str) {remove_str = str; shared_memory_object::remove(remove_str); }
-        ~shm_sync_remove(){ shared_memory_object::remove(remove_str); }
-    } sync_remover(const_cast<char*>(syncStr.c_str()));
 
     managed_shared_memory sync_segment  (create_only,
                                         syncStr.c_str(),

@@ -16,10 +16,10 @@ class DataPointsProducer
         void finish(int poisonPill);
     protected:
     private:
-        const std::string shmemPointsStr;
-        const std::string shmemSyncStr;
-        const std::string shmemBufferStr;
-        const std::string shmemSyncItemsStr;
+        std::string shmemPointsStr;
+        std::string shmemSyncStr;
+        std::string shmemBufferStr;
+        std::string shmemSyncItemsStr;
 };
 
 #endif // DATAPOINTSPRODUCER_H

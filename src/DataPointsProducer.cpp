@@ -18,7 +18,7 @@ DataPointsProducer::DataPointsProducer(const std::string &pointsStr,
     , shmemBufferStr(bufferStr)
     , shmemSyncItemsStr(syncItemsStr)
 {
-
+    std::cout << "producer constructor" << std::endl;
 }
 
 void DataPointsProducer::produce(int dataCount)

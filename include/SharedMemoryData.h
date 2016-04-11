@@ -7,8 +7,8 @@
 #include <boost/interprocess/managed_shared_memory.hpp>
 #include <boost/interprocess/sync/interprocess_condition.hpp>
 
+using namespace boost::interprocess;
 namespace shmem_data {
-    using namespace boost::interprocess;
     //Alias an STL-like allocator of ints that allocates ints from the segment
     typedef allocator<int, managed_shared_memory::segment_manager>
       ShmemAllocator;
@@ -36,5 +36,13 @@ namespace shmem_data {
         bool                    finished;
     };
 }
+
+struct shm_remove
+{
+    char * remove_str;
+
+    shm_remove(char* str) { remove_str = str; shared_memory_object::remove(remove_str); }
+    ~shm_remove(){ shared_memory_object::remove(remove_str); }
+};
 
 #endif // SHAREDMEMORYDATA_H_INCLUDED

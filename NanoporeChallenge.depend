@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1460312973 source:/home/joe/git/NanoporeChallenge/main.cpp
+1460371933 source:/home/joe/git/NanoporeChallenge/main.cpp
 	<boost/interprocess/containers/vector.hpp>
 	<boost/circular_buffer.hpp>
 	<boost/interprocess/allocators/allocator.hpp>
@@ -15,6 +15,7 @@
 	<vector>
 	"DataPointsProducer.h"
 	"DataPointsConsumer.h"
+	"SharedMemoryData.h"
 	"HDF5HandlerBase.h"
 	"H5Cpp.h"
 
@@ -5870,7 +5871,7 @@
 	<boost/cstdint.hpp>
 	<boost/interprocess/detail/config_end.hpp>
 
-1460312668 source:/home/joe/git/NanoporeChallenge/src/DataPointsProducer.cpp
+1460313436 source:/home/joe/git/NanoporeChallenge/src/DataPointsProducer.cpp
 	"DataPointsProducer.h"
 	<boost/interprocess/managed_shared_memory.hpp>
 	<boost/interprocess/sync/interprocess_condition.hpp>
@@ -5879,10 +5880,10 @@
 	<thread>
 	"SharedMemoryData.h"
 
-1460313362 /home/joe/git/NanoporeChallenge/include/DataPointsProducer.h
+1460375830 /home/joe/git/NanoporeChallenge/include/DataPointsProducer.h
 	<iostream>
 
-1460112953 /home/joe/git/NanoporeChallenge/include/SharedMemoryData.h
+1460371718 /home/joe/git/NanoporeChallenge/include/SharedMemoryData.h
 	<boost/interprocess/containers/vector.hpp>
 	<boost/circular_buffer.hpp>
 	<boost/interprocess/allocators/allocator.hpp>
