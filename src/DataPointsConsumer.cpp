@@ -7,11 +7,16 @@
 #include "SharedMemoryData.h"
 
 
-DataPointsConsumer::DataPointsConsumer(std::string pointsStr, std::string syncStr)
+DataPointsConsumer::DataPointsConsumer(const std::string &pointsStr,
+                                        const std::string &syncStr,
+                                        const std::string &bufferStr,
+                                        const std::string &syncItemsStr)
     : shmemPointsStr(pointsStr)
     , shmemSyncStr(syncStr)
+    , shmemBufferStr(bufferStr)
+    , shmemSyncItemsStr(syncItemsStr)
 {
-    // Include later in arguments a HDF5 base class that can be extend with different save() virtual function
+
 }
 
 int DataPointsConsumer::consume()
@@ -22,8 +27,8 @@ int DataPointsConsumer::consume()
     managed_shared_memory sync_segment(open_only, shmemSyncStr.c_str());
 
     // Open circular buffer  and sync data from shared memory
-    offset_ptr<shmem_data::MyCircularBuffer> circ_buffer = segment.find<shmem_data::MyCircularBuffer>("MyCircularBuffer").first;
-    offset_ptr<shmem_data::sync_items> sync_data = sync_segment.find<shmem_data::sync_items>("SyncItems").first;
+    offset_ptr<shmem_data::MyCircularBuffer> circ_buffer = segment.find<shmem_data::MyCircularBuffer>(shmemBufferStr.c_str()).first;
+    offset_ptr<shmem_data::sync_items> sync_data = sync_segment.find<shmem_data::sync_items>(shmemSyncItemsStr.c_str()).first;
 
     {
         scoped_lock<interprocess_mutex> lock (sync_data->mutex);
@@ -46,8 +51,8 @@ std::vector<int> DataPointsConsumer::consume_to_vector(int limit, int poisonPill
     managed_shared_memory sync_segment(open_only, shmemSyncStr.c_str());
 
     // Open circular buffer  and sync data from shared memory
-    offset_ptr<shmem_data::MyCircularBuffer> circ_buffer = segment.find<shmem_data::MyCircularBuffer>("MyCircularBuffer").first;
-    offset_ptr<shmem_data::sync_items> sync_data = sync_segment.find<shmem_data::sync_items>("SyncItems").first;
+    offset_ptr<shmem_data::MyCircularBuffer> circ_buffer = segment.find<shmem_data::MyCircularBuffer>(shmemBufferStr.c_str()).first;
+    offset_ptr<shmem_data::sync_items> sync_data = sync_segment.find<shmem_data::sync_items>(shmemSyncItemsStr.c_str()).first;
 
     std::vector<int> data;
 

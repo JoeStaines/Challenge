@@ -107,7 +107,7 @@ int main (int argc, char* argv[])
         try {
             HDF5HandlerBase hdf5_handler("hdf5_test.h5", "dset");
 
-            DataPointsConsumer consumer(pointsStr, syncStr);
+            DataPointsConsumer consumer(pointsStr, syncStr, bufferStr, syncItemsStr);
 
             while(!finished) {
                 std::vector<int> data;

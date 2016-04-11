@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1460369545 source:/home/joe/git/NanoporeChallenge/tests/NanoporeChallenge_test/main.cpp
+1460379392 source:/home/joe/git/NanoporeChallenge/tests/NanoporeChallenge_test/main.cpp
 	<iostream>
 	<gtest/gtest.h>
 
@@ -164,7 +164,7 @@
 1460369416 source:/home/joe/git/NanoporeChallenge/tests/NanoporeChallenge_test/test_addition.cpp
 	<gtest/gtest.h>
 
-1460377996 source:/home/joe/git/NanoporeChallenge/tests/NanoporeChallenge_test/test_producer.cpp
+1460379770 source:/home/joe/git/NanoporeChallenge/tests/NanoporeChallenge_test/test_producer.cpp
 	<boost/interprocess/managed_shared_memory.hpp>
 	<iostream>
 	"DataPointsProducer.h"
@@ -6032,4 +6032,15 @@
 	<boost/move/utility_core.hpp>
 	<boost/cstdint.hpp>
 	<boost/interprocess/detail/config_end.hpp>
+
+1460381655 source:/home/joe/git/NanoporeChallenge/tests/NanoporeChallenge_test/test_consumer.cpp
+	<boost/interprocess/managed_shared_memory.hpp>
+	<iostream>
+	"DataPointsConsumer.h"
+	"SharedMemoryData.h"
+	<gtest/gtest.h>
+
+1460380461 /home/joe/git/NanoporeChallenge/include/DataPointsConsumer.h
+	<iostream>
+	<vector>
 

@@ -7,7 +7,10 @@
 class DataPointsConsumer
 {
     public:
-        DataPointsConsumer(std::string pointsStr, std::string syncStr);
+        DataPointsConsumer(const std::string &pointsStr,
+                            const std::string &syncStr,
+                            const std::string &bufferStr,
+                            const std::string &syncItemsStr);
         ~DataPointsConsumer();
 
         int consume();
@@ -16,6 +19,8 @@ class DataPointsConsumer
     private:
         std::string shmemPointsStr;
         std::string shmemSyncStr;
+        std::string shmemBufferStr;
+        std::string shmemSyncItemsStr;
 };
 
 #endif // DATAPOINTSCONSUMER_H
