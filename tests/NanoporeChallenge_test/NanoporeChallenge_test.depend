@@ -6033,9 +6033,10 @@
 	<boost/cstdint.hpp>
 	<boost/interprocess/detail/config_end.hpp>
 
-1460381655 source:/home/joe/git/NanoporeChallenge/tests/NanoporeChallenge_test/test_consumer.cpp
+1460382652 source:/home/joe/git/NanoporeChallenge/tests/NanoporeChallenge_test/test_consumer.cpp
 	<boost/interprocess/managed_shared_memory.hpp>
 	<iostream>
+	<vector>
 	"DataPointsConsumer.h"
 	"SharedMemoryData.h"
 	<gtest/gtest.h>

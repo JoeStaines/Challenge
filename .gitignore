@@ -29,3 +29,6 @@
 
 # HDF5 Files
 *.h5
+
+# bin directory
+**/bin
