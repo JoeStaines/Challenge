@@ -18,8 +18,6 @@ class HDF5HandlerBase
         HDF5HandlerBase(const std::string &fileName, const std::string &datasetName);
         virtual ~HDF5HandlerBase();
 
-        int create_file();
-        int extendable_file();
         virtual void save(const std::vector<int> &dataPoints);
     protected:
     private:
