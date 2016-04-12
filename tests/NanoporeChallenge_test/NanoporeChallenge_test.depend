@@ -164,9 +164,10 @@
 1460369416 source:/home/joe/git/NanoporeChallenge/tests/NanoporeChallenge_test/test_addition.cpp
 	<gtest/gtest.h>
 
-1460379770 source:/home/joe/git/NanoporeChallenge/tests/NanoporeChallenge_test/test_producer.cpp
+1460456562 source:/home/joe/git/NanoporeChallenge/tests/NanoporeChallenge_test/test_producer.cpp
 	<boost/interprocess/managed_shared_memory.hpp>
 	<iostream>
+	<vector>
 	"DataPointsProducer.h"
 	"SharedMemoryData.h"
 	<gtest/gtest.h>
@@ -5011,15 +5012,18 @@
 	<boost/interprocess/detail/workaround.hpp>
 	<boost/interprocess/detail/config_end.hpp>
 
-1460375830 /home/joe/git/NanoporeChallenge/include/DataPointsProducer.h
+1460455247 /home/joe/git/NanoporeChallenge/include/DataPointsProducer.h
 	<iostream>
+	<vector>
+	"SharedMemoryData.h"
 
-1460371718 /home/joe/git/NanoporeChallenge/include/SharedMemoryData.h
+1460452777 /home/joe/git/NanoporeChallenge/include/SharedMemoryData.h
 	<boost/interprocess/containers/vector.hpp>
 	<boost/circular_buffer.hpp>
 	<boost/interprocess/allocators/allocator.hpp>
 	<boost/interprocess/managed_shared_memory.hpp>
 	<boost/interprocess/sync/interprocess_condition.hpp>
+	<string>
 
 1449603569 /home/joe/includes/boost_1_60_0/boost/interprocess/containers/vector.hpp
 	<boost/config.hpp>
@@ -6033,7 +6037,7 @@
 	<boost/cstdint.hpp>
 	<boost/interprocess/detail/config_end.hpp>
 
-1460382652 source:/home/joe/git/NanoporeChallenge/tests/NanoporeChallenge_test/test_consumer.cpp
+1460454893 source:/home/joe/git/NanoporeChallenge/tests/NanoporeChallenge_test/test_consumer.cpp
 	<boost/interprocess/managed_shared_memory.hpp>
 	<iostream>
 	<vector>
@@ -6041,7 +6045,8 @@
 	"SharedMemoryData.h"
 	<gtest/gtest.h>
 
-1460380461 /home/joe/git/NanoporeChallenge/include/DataPointsConsumer.h
+1460453315 /home/joe/git/NanoporeChallenge/include/DataPointsConsumer.h
 	<iostream>
 	<vector>
+	"SharedMemoryData.h"
 

@@ -11,6 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="2" />
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-g" />
@@ -20,12 +21,9 @@
 				</Compiler>
 				<Linker>
 					<Add option="-lrt" />
-					<Add option="-lboost_thread" />
 					<Add option="-lhdf5_cpp" />
 					<Add option="-lhdf5" />
 					<Add option="-pthread" />
-					<Add directory="/usr/local/lib" />
-					<Add directory="/lib" />
 					<Add directory="/usr/local/hdf5/lib" />
 				</Linker>
 			</Target>
@@ -36,10 +34,18 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-std=c++11" />
 					<Add directory="include" />
+					<Add directory="/home/joe/includes/boost_1_60_0" />
+					<Add directory="/usr/local/hdf5/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add option="-lrt" />
+					<Add option="-lhdf5_cpp" />
+					<Add option="-lhdf5" />
+					<Add option="-pthread" />
+					<Add directory="/usr/local/hdf5/lib" />
 				</Linker>
 			</Target>
 		</Build>
@@ -48,11 +54,13 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="include/DataPointsConsumer.h" />
+		<Unit filename="include/DataPointsModifier.h" />
 		<Unit filename="include/DataPointsProducer.h" />
 		<Unit filename="include/HDF5HandlerBase.h" />
 		<Unit filename="include/SharedMemoryData.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/DataPointsConsumer.cpp" />
+		<Unit filename="src/DataPointsModifier.cpp" />
 		<Unit filename="src/DataPointsProducer.cpp" />
 		<Unit filename="src/HDF5HandlerBase.cpp" />
 		<Extensions>

@@ -3,24 +3,19 @@
 
 #include <iostream>
 #include <vector>
+#include "SharedMemoryData.h"
 
 class DataPointsConsumer
 {
     public:
-        DataPointsConsumer(const std::string &pointsStr,
-                            const std::string &syncStr,
-                            const std::string &bufferStr,
-                            const std::string &syncItemsStr);
+        DataPointsConsumer(const shared_data_strings &dataStrings);
         ~DataPointsConsumer();
 
         int consume();
         std::vector<int> consume_to_vector(int limit, int poisonPill);
     protected:
     private:
-        std::string shmemPointsStr;
-        std::string shmemSyncStr;
-        std::string shmemBufferStr;
-        std::string shmemSyncItemsStr;
+        shared_data_strings dataStrings;
 };
 
 #endif // DATAPOINTSCONSUMER_H

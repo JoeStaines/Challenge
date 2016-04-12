@@ -13,7 +13,19 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="/usr/include/googletest/include" />
+					<Add directory="../../include" />
+					<Add directory="/home/joe/includes/boost_1_60_0" />
 				</Compiler>
+				<Linker>
+					<Add option="../../obj/Debug/src/DataPointsProducer.o" />
+					<Add option="../../obj/Debug/src/DataPointsConsumer.o" />
+					<Add option="-lrt" />
+					<Add option="-pthread" />
+					<Add library="/usr/lib/libgtest.a" />
+					<Add library="/usr/lib/libgtest_main.a" />
+					<Add directory="/usr/lib" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/NanoporeChallenge_test" prefix_auto="1" extension_auto="1" />
@@ -22,9 +34,19 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="/usr/include/googletest/include" />
+					<Add directory="../../include" />
+					<Add directory="/home/joe/includes/boost_1_60_0" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add option="../../obj/Release/src/DataPointsProducer.o" />
+					<Add option="../../obj/Release/src/DataPointsConsumer.o" />
+					<Add option="-lrt" />
+					<Add option="-pthread" />
+					<Add library="/usr/lib/libgtest.a" />
+					<Add library="/usr/lib/libgtest_main.a" />
+					<Add directory="/usr/lib" />
 				</Linker>
 			</Target>
 		</Build>
@@ -33,6 +55,8 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="main.cpp" />
+		<Unit filename="test_consumer.cpp" />
+		<Unit filename="test_producer.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

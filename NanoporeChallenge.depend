@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1460380481 source:/home/joe/git/NanoporeChallenge/main.cpp
+1460454751 source:/home/joe/git/NanoporeChallenge/main.cpp
 	<boost/interprocess/containers/vector.hpp>
 	<boost/circular_buffer.hpp>
 	<boost/interprocess/allocators/allocator.hpp>
@@ -15,6 +15,7 @@
 	<vector>
 	"DataPointsProducer.h"
 	"DataPointsConsumer.h"
+	"DataPointsModifier.h"
 	"SharedMemoryData.h"
 	"HDF5HandlerBase.h"
 	"H5Cpp.h"
@@ -5871,37 +5872,39 @@
 	<boost/cstdint.hpp>
 	<boost/interprocess/detail/config_end.hpp>
 
-1460378079 source:/home/joe/git/NanoporeChallenge/src/DataPointsProducer.cpp
+1460454075 source:/home/joe/git/NanoporeChallenge/src/DataPointsProducer.cpp
 	"DataPointsProducer.h"
 	<boost/interprocess/managed_shared_memory.hpp>
 	<boost/interprocess/sync/interprocess_condition.hpp>
 	<boost/interprocess/sync/scoped_lock.hpp>
 	<chrono>
 	<thread>
+
+1460455247 /home/joe/git/NanoporeChallenge/include/DataPointsProducer.h
+	<iostream>
+	<vector>
 	"SharedMemoryData.h"
 
-1460375830 /home/joe/git/NanoporeChallenge/include/DataPointsProducer.h
-	<iostream>
-
-1460371718 /home/joe/git/NanoporeChallenge/include/SharedMemoryData.h
+1460452777 /home/joe/git/NanoporeChallenge/include/SharedMemoryData.h
 	<boost/interprocess/containers/vector.hpp>
 	<boost/circular_buffer.hpp>
 	<boost/interprocess/allocators/allocator.hpp>
 	<boost/interprocess/managed_shared_memory.hpp>
 	<boost/interprocess/sync/interprocess_condition.hpp>
+	<string>
 
-1460380507 source:/home/joe/git/NanoporeChallenge/src/DataPointsConsumer.cpp
+1460454012 source:/home/joe/git/NanoporeChallenge/src/DataPointsConsumer.cpp
 	"DataPointsConsumer.h"
 	<boost/interprocess/managed_shared_memory.hpp>
 	<boost/interprocess/sync/interprocess_condition.hpp>
 	<boost/interprocess/sync/scoped_lock.hpp>
-	"SharedMemoryData.h"
 
-1460380461 /home/joe/git/NanoporeChallenge/include/DataPointsConsumer.h
+1460453315 /home/joe/git/NanoporeChallenge/include/DataPointsConsumer.h
 	<iostream>
 	<vector>
+	"SharedMemoryData.h"
 
-1460310574 source:/home/joe/git/NanoporeChallenge/src/HDF5HandlerBase.cpp
+1460449977 source:/home/joe/git/NanoporeChallenge/src/HDF5HandlerBase.cpp
 	"HDF5HandlerBase.h"
 
 1460297856 /home/joe/git/NanoporeChallenge/include/HDF5HandlerBase.h
@@ -6170,4 +6173,18 @@
 1460130210 /usr/local/hdf5/include/H5File.h
 
 1460130210 /usr/local/hdf5/include/H5Library.h
+
+1460454481 source:/home/joe/git/NanoporeChallenge/src/DataPointsModifier.cpp
+	"DataPointsModifier.h"
+	<boost/interprocess/managed_shared_memory.hpp>
+	<boost/interprocess/sync/interprocess_condition.hpp>
+	<boost/interprocess/sync/scoped_lock.hpp>
+	<vector>
+	"DataPointsConsumer.h"
+	"DataPointsProducer.h"
+	"SharedMemoryData.h"
+
+1460454328 /home/joe/git/NanoporeChallenge/include/DataPointsModifier.h
+	"DataPointsProducer.h"
+	"SharedMemoryData.h"
 

@@ -46,6 +46,7 @@ HDF5HandlerBase::HDF5HandlerBase(const std::string &fileName, const std::string 
 
 HDF5HandlerBase::~HDF5HandlerBase()
 {
+    std::cout << "Calling file close" << std::endl;
     file.close();
 }
 
@@ -85,63 +86,7 @@ void HDF5HandlerBase::save(const std::vector<int> &dataPoints) {
 
         filespace.close();
         memspace.close();
-    /*
-         hsize_t dims[1] = {3};	        // dataset dimensions at creation
-         hsize_t maxdims[1] = {H5S_UNLIMITED};
-         hsize_t chunk_dims[1] ={2};
-         int	   data[3] = {1, 1, 1};    // data to write
 
-         // Variables used in extending and writing to the extended portion of dataset
-
-         hsize_t size[1];
-         hsize_t offset[1];
-         hsize_t dimsext[1] = {3};         // extend dimensions
-         int     dataext[3] = {2, 3, 4};
-
-        // handle the errors appropriately
-        Exception::dontPrint();
-
-        // Create a new file using the default property lists.
-        H5File file("hdf5_extend_test.h5", H5F_ACC_TRUNC);
-        // Create the data space for the dataset.  Note the use of pointer
-        // for the instance 'dataspace'.  It can be deleted and used again
-        // later for another dataspace.  An HDF5 identifier can be closed
-        // by the destructor or the method 'close()'.
-        DataSpace *dataspace = new DataSpace (1, dims, maxdims);
-
-        // Modify dataset creation property to enable chunking
-        DSetCreatPropList prop;
-        prop.setChunk(1, chunk_dims);
-
-        // Create the chunked dataset.  Note the use of pointer.
-        DataSet *dataset = new DataSet(file.createDataSet( "dset",
-                                 PredType::STD_I32BE, *dataspace, prop) );
-
-        // Write data to dataset.
-        dataset->write(data, PredType::NATIVE_INT);
-
-        // Extend the dataset. Dataset becomes 10 x 3.
-        size[0] = dims[0] + dimsext[0];
-        //size[1] = dims[1];
-        dataset.extend(size);
-
-        // Select a hyperslab in extended portion of the dataset.
-        DataSpace filespace(dataset.getSpace ());
-
-        int ndims = filespace.getSimpleExtentNdims();
-        hsize_t dims[ndims];
-        filespace.getSimpleExtentDims(dims);
-
-        offset[0] = 3;
-        //offset[1] = 0;
-        filespace.selectHyperslab(H5S_SELECT_SET, dimsext, offset);
-
-        // Define memory space.
-        DataSpace memspace(1, dimsext, NULL);
-
-        // Write data to the extended portion of the dataset.
-        dataset.write(dataext, PredType::NATIVE_INT, memspace, filespace);
-        */
     } catch (Exception &error) {
         throw;
     }

@@ -18,7 +18,9 @@ class ConsumerTest : public ::testing::Test
             shm_remove remover("MySharedMemory");
             shm_remove sync_remover("SyncMemory");
 
-            consumer = new DataPointsConsumer("MySharedMemory", "SyncMemory", "MyCircularBuffer", "SyncItems");
+            shared_data_strings dataStrings = {"MySharedMemory", "SyncMemory", "MyCircularBuffer", "SyncItems"};
+
+            consumer = new DataPointsConsumer(dataStrings);
        }
 
        virtual void TearDown()

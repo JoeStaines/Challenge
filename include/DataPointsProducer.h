@@ -2,24 +2,23 @@
 #define DATAPOINTSPRODUCER_H
 
 #include <iostream>
+#include <vector>
+
+#include "SharedMemoryData.h"
 
 class DataPointsProducer
 {
     public:
-        DataPointsProducer(const std::string &pointsStr,
-                            const std::string &syncStr,
-                            const std::string &bufferStr,
-                            const std::string &syncItemsStr);
-        ~DataPointsProducer();
+        DataPointsProducer(const shared_data_strings &dataStrings);
+        virtual ~DataPointsProducer();
 
         void produce(int dataCount);
         void finish(int poisonPill);
+        void push(int val);
+        void push(const std::vector<int> &data);
     protected:
     private:
-        std::string shmemPointsStr;
-        std::string shmemSyncStr;
-        std::string shmemBufferStr;
-        std::string shmemSyncItemsStr;
+        shared_data_strings dataStrings;
 };
 
 #endif // DATAPOINTSPRODUCER_H
